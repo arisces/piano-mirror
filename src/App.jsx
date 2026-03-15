@@ -19,8 +19,16 @@ const NOTE_HISTORY_MAX = 40
 let noteHistory = []
 
 export default function App() {
-  const { activeNotes, midiStatus, currentChord, inferredKey, harmonicFunction, nextChords } =
-    useStore()
+  const {
+    activeNotes,
+    midiStatus,
+    currentChord,
+    inferredKey,
+    harmonicFunction,
+    nextChords,
+    progressionHistory,   // ← reactive subscription, not getState() snapshot
+  } = useStore()
+
   const setTheoryState = useStore((s) => s.setTheoryState)
 
   // Connect MIDI
@@ -64,7 +72,7 @@ export default function App() {
   // Get emotion from current chord type
   const emotion = currentChord ? getEmotion(currentChord.type) : null
 
-  // Display chord symbol for header
+  // Display key name for header
   const keyDisplay = inferredKey
     ? `${inferredKey.tonic} ${inferredKey.mode}`
     : null
@@ -129,9 +137,9 @@ export default function App() {
           activeNotes={activeNotes}
           emotionColor={emotion?.color}
         />
-        {currentChord && (
+        {progressionHistory.length > 0 && (
           <div className="footer-history">
-            Progression: {useStore.getState().progressionHistory.slice(-8).join(' → ')}
+            Progression: {progressionHistory.slice(-8).join(' → ')}
           </div>
         )}
       </footer>
