@@ -1,0 +1,347 @@
+/* ── Reset & Base ──────────────────────────────────────────────────────── */
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+:root {
+  --bg-base:    #0d0d1a;
+  --bg-panel:   rgba(255,255,255,0.03);
+  --bg-card:    rgba(255,255,255,0.05);
+  --border:     rgba(255,255,255,0.07);
+  --border-mid: rgba(255,255,255,0.12);
+  --text-1:     #e2e8f0;
+  --text-2:     rgba(255,255,255,0.55);
+  --text-3:     rgba(255,255,255,0.3);
+  --gold:       #F4C430;
+  --red:        #E25C3B;
+  --blue:       #4A9EFF;
+  --radius-sm:  6px;
+  --radius-md:  10px;
+  font-family: system-ui, -apple-system, sans-serif;
+}
+
+html, body, #root {
+  height: 100%;
+  width: 100%;
+  overflow: hidden;
+}
+
+/* ── App shell ─────────────────────────────────────────────────────────── */
+.app {
+  display: grid;
+  grid-template-rows: 44px auto 1fr auto;
+  height: 100vh;
+  background: var(--bg-base);
+  color: var(--text-1);
+  overflow: hidden;
+}
+
+/* ── Header ────────────────────────────────────────────────────────────── */
+.app-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 20px;
+  background: rgba(255,255,255,0.03);
+  border-bottom: 0.5px solid var(--border);
+}
+
+.app-logo {
+  font-size: 15px;
+  font-weight: 500;
+  color: var(--gold);
+  letter-spacing: 0.04em;
+}
+
+.header-center {
+  font-size: 13px;
+}
+
+.key-badge {
+  font-size: 13px;
+  font-weight: 500;
+}
+
+.fn-badge {
+  opacity: 0.6;
+  font-weight: 400;
+}
+
+.midi-indicator {
+  font-size: 11px;
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+
+.midi-indicator.connected { color: #4ade80; }
+.midi-indicator.disconnected { color: var(--text-3); }
+
+.midi-dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: currentColor;
+}
+
+/* ── MIDI status banner ─────────────────────────────────────────────────── */
+.midi-status-banner {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 20px;
+  font-size: 13px;
+  border-bottom: 0.5px solid;
+}
+
+.midi-status-dot {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  flex-shrink: 0;
+}
+
+/* ── Main layout ────────────────────────────────────────────────────────── */
+.app-main {
+  display: grid;
+  grid-template-columns: 210px 1fr 220px;
+  overflow: hidden;
+  min-height: 0;
+}
+
+.panel-left {
+  border-right: 0.5px solid var(--border);
+  overflow-y: auto;
+  padding: 16px 14px;
+}
+
+.panel-center {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+  background: radial-gradient(circle at 50% 50%, rgba(255,255,255,0.02) 0%, transparent 70%);
+}
+
+.panel-right {
+  border-left: 0.5px solid var(--border);
+  overflow-y: auto;
+  padding: 16px 14px;
+}
+
+/* ── ChordLabel panel ───────────────────────────────────────────────────── */
+.chord-label-panel {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.chord-label-panel.empty {
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.chord-label-hint {
+  text-align: center;
+  color: var(--text-3);
+  font-size: 13px;
+  line-height: 1.7;
+}
+
+.chord-symbol {
+  font-size: 42px;
+  font-weight: 500;
+  line-height: 1;
+  letter-spacing: -0.02em;
+}
+
+.chord-inversion {
+  font-size: 24px;
+  opacity: 0.7;
+}
+
+.chord-full-name {
+  font-size: 13px;
+  color: var(--text-2);
+  margin-top: 2px;
+}
+
+.function-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  border-radius: 20px;
+  padding: 4px 10px;
+  font-size: 12px;
+  width: fit-content;
+}
+
+.fn-numeral {
+  font-weight: 500;
+}
+
+.fn-dot, .fn-label {
+  opacity: 0.8;
+}
+
+.section-label,
+.emotion-section-label {
+  font-size: 10px;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--text-3);
+  margin-bottom: 5px;
+}
+
+.emotion-card {
+  background: var(--bg-card);
+  border: 0.5px solid;
+  border-radius: var(--radius-md);
+  padding: 10px 12px;
+}
+
+.emotion-label {
+  font-size: 16px;
+  font-weight: 500;
+  margin-bottom: 4px;
+}
+
+.emotion-desc {
+  font-size: 12px;
+  color: var(--text-2);
+  line-height: 1.55;
+}
+
+.notes-section, .key-section {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+
+.notes-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px;
+}
+
+.note-pill {
+  font-size: 11px;
+  border-radius: 4px;
+  padding: 2px 8px;
+  font-weight: 500;
+}
+
+.key-line {
+  font-size: 13px;
+  color: var(--text-1);
+}
+
+.key-confidence {
+  color: var(--text-3);
+  font-size: 11px;
+}
+
+/* ── NextChords panel ───────────────────────────────────────────────────── */
+.next-chords-panel {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.next-empty {
+  font-size: 12px;
+  color: var(--text-3);
+  line-height: 1.6;
+  margin-top: 4px;
+}
+
+.suggestion-card {
+  background: var(--bg-panel);
+  border: 0.5px solid var(--border);
+  border-radius: var(--radius-sm);
+  padding: 9px 10px;
+  cursor: default;
+  transition: background 0.12s;
+}
+
+.suggestion-card:hover {
+  background: rgba(255,255,255,0.06);
+}
+
+.sug-top-row {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.sug-numeral {
+  font-size: 11px;
+  color: var(--text-3);
+  min-width: 26px;
+}
+
+.sug-chord {
+  font-size: 15px;
+  font-weight: 500;
+  flex: 1;
+}
+
+.sug-bar-track {
+  width: 42px;
+  height: 3px;
+  background: rgba(255,255,255,0.1);
+  border-radius: 2px;
+  overflow: hidden;
+}
+
+.sug-bar-fill {
+  height: 100%;
+  border-radius: 2px;
+}
+
+.sug-emotion {
+  font-size: 10px;
+  color: var(--text-3);
+  margin-top: 3px;
+}
+
+/* ── Footer / Piano ─────────────────────────────────────────────────────── */
+.app-footer {
+  background: rgba(255,255,255,0.02);
+  border-top: 0.5px solid var(--border);
+  padding: 10px 20px 8px;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  align-items: flex-start;
+  overflow-x: auto;
+}
+
+.piano-container {
+  overflow-x: auto;
+  max-width: 100%;
+}
+
+.footer-history {
+  font-size: 11px;
+  color: var(--text-3);
+  white-space: nowrap;
+  padding-left: 2px;
+}
+
+/* ── Scrollbars ─────────────────────────────────────────────────────────── */
+::-webkit-scrollbar {
+  width: 4px;
+  height: 4px;
+}
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+::-webkit-scrollbar-thumb {
+  background: rgba(255,255,255,0.12);
+  border-radius: 2px;
+}
